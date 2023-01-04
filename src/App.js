@@ -6,15 +6,15 @@ import Results from './components/Results/Results'
 function App() {
 
   const [query, setQuery] = useState('');
-  const [isUser, setIsUser] = useState();
+  const [queryType, setQueryType] = useState('repositories');
+
+  console.log(queryType)
 
   return (
     <div className="App">
-      <Search setQuery={setQuery} query={query} isUser={isUser} setIsUser={setIsUser} />
-      App
-      {
-        query.length !== 0 &&
-        <Results query={query} isUser={isUser} />
+      <Search setQuery={setQuery} query={query} queryType={queryType} setQueryType={setQueryType} />
+      {query.length !== 0 &&
+        <Results query={query} queryType={queryType} />
       }
     </div>
   );

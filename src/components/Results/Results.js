@@ -1,13 +1,12 @@
 import React from 'react'
-import { Card } from 'antd';
+import { Card, Avatar, Image } from 'antd';
 import styles from './results.module.css'
 
 import { useGetRepositoryQuery } from '../../services/githubApi';
-import { useGetUsersQuery } from '../../services/githubApi';
 
-const Results = ({ query }) => {
 
-  const { data, error, isLoading } = useGetRepositoryQuery(query);
+const Results = ({ query, queryType }) => {
+  const { data, error, isLoading } = useGetRepositoryQuery({ query, queryType });
 
   if (isLoading) {
     return <h2>Data is loading....</h2>
@@ -17,46 +16,28 @@ const Results = ({ query }) => {
     return <h2>Error while fetching data...</h2>
   }
 
-  console.log(isLoading)
-  console.log(data)
-  console.log(data);
+  let results;
+  if (queryType === 'repositories') {
+    results = data.items.map((item) => (
+      <Card size="small" title={item.name} extra={<a href={item.html_url}>More</a>} style={{ width: 300, height: 200 }}>
+        {item.description && <p>{item.description.split(225) + "..."}</p>}
+      </Card>
+    ))
+  } else if (queryType === 'users') {
+    results = data.items.map((item) => (
+      <Card size="small" title={item.login} extra={<a href={item.html_url}>More</a>} style={{ width: 300, height: 200 }}>
+        <Avatar src={<Image src={item.avatar_url} style={{ width: 64 }} />} size={64} />
+        <p>Score: {item.score}</p>
+      </Card>))
+  }
 
-  let results = data.items.map((item) => (
-    <Card size="small" title={item.name} extra={<a href={item.html_url}>More</a>} style={{ width: 300 }}>
-      <p>{item.description}</p>
-      {/* <p>Card content</p> */}
-      {/* <p>Card content</p> */}
-    </Card>
-  ))
   return (
-    <div className={styles.container}>
-      {results}
-      {/* <Card size="small" title="Default size card" extra={<a href="#">More</a>} style={{ width: 300 }}>
-        <p>Card content</p>
-        <p>Card content</p>
-        <p>Card content</p>
-      </Card>
-      <Card size="small" title="Small size card" extra={<a href="#">More</a>} style={{ width: 300 }}>
-        <p>Card content</p>
-        <p>Card content</p>
-        <p>Card content</p>
-      </Card>
-      <Card size="small" title="Small size card" extra={<a href="#">More</a>} style={{ width: 300 }}>
-        <p>Card content</p>
-        <p>Card content</p>
-        <p>Card content</p>
-      </Card>
-      <Card size="small" title="Small size card" extra={<a href="#">More</a>} style={{ width: 300 }}>
-        <p>Card content</p>
-        <p>Card content</p>
-        <p>Card content</p>
-      </Card>
-      <Card size="small" title="Small size card" extra={<a href="#">More</a>} style={{ width: 300 }}>
-        <p>Card content</p>
-        <p>Card content</p>
-        <p>Card content</p>
-      </Card> */}
+    <div className={styles.wrapper}>
+      <div className={styles.container}>
+        {results}
+      </div>
     </div>
+
   )
 }
 
