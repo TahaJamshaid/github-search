@@ -7,21 +7,16 @@ import debounce from 'lodash.debounce';
 
 const { Title } = Typography;
 
-
 const Search = ({ query, setQuery, IsUser, setIsUser }) => {
   const onInputChangeHandler = (event) => {
+    event.preventDefault()
     console.log(query);
     setQuery(event.target.value)
-
   }
-
   const debouncedChangeHandler = useCallback(
     debounce(onInputChangeHandler, 1000)
     , []);
-
   console.log(query)
-
-
   return (
     <>
       <div>

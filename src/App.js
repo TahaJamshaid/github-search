@@ -12,10 +12,10 @@ function App() {
     <div className="App">
       <Search setQuery={setQuery} query={query} isUser={isUser} setIsUser={setIsUser} />
       App
-      {/* {
+      {
         query.length !== 0 &&
         <Results query={query} isUser={isUser} />
-      } */}
+      }
     </div>
   );
 }
