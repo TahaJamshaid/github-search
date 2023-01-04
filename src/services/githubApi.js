@@ -13,9 +13,12 @@ export const githubApi = createApi({
   endpoints: (builder) => ({
     getRepository: builder.query({
       query: (name) => `search/repositories?q=${name}`
+    }),
+    getUsers: builder.query({
+      query: (name) => `search/users?q=${name}`
     })
   })
 })
 
 
-export const { useGetRepositoryQuery } = githubApi;
+export const { useGetRepositoryQuery, useGetUsersQuery } = githubApi;

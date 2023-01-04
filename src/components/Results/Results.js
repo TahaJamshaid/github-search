@@ -1,11 +1,14 @@
 import React from 'react'
 
 import { useGetRepositoryQuery } from '../../services/githubApi';
+import { useGetUsersQuery } from '../../services/githubApi';
 
-const Results = () => {
+const Results = ({ query }) => {
 
-  const { data, error, isLoading } = useGetRepositoryQuery('react');
+  const { data, error, isLoading } = useGetRepositoryQuery(query);
+
   console.log(isLoading)
+  console.log(data)
   console.log(data);
   return (
     <div>Results</div>

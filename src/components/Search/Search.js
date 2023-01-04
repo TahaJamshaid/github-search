@@ -1,14 +1,27 @@
-import React from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { Typography } from 'antd';
 import { Avatar, Image } from 'antd';
 import Logo from '../../assets/github-logo.png'
-import { Form, Input, Select } from 'antd';
-const { Option } = Select;
+import debounce from 'lodash.debounce';
+
 
 const { Title } = Typography;
 
 
-const Search = () => {
+const Search = ({ query, setQuery, IsUser, setIsUser }) => {
+  const onInputChangeHandler = (event) => {
+    console.log(query);
+    setQuery(event.target.value)
+
+  }
+
+  const debouncedChangeHandler = useCallback(
+    debounce(onInputChangeHandler, 1000)
+    , []);
+
+  console.log(query)
+
+
   return (
     <>
       <div>
@@ -19,25 +32,13 @@ const Search = () => {
         </div>
       </div>
       <div>
-        <Form layout="inline" >
-          <Form.Item
-
-            name="github-search"
-          >
-            <Input placeholder="Start Typing to search" />
-          </Form.Item>
-          <Form.Item
-            name="type"
-          >
-            <Select
-              placeholder="User or Repository"
-              allowClear
-            >
-              <Option value="male">user</Option>
-              <Option value="female">repository</Option>
-            </Select>
-          </Form.Item>
-        </Form>
+        <form>
+          <input type="text" onChange={debouncedChangeHandler} />
+          <select name="cars" id="cars">
+            <option value="user">User</option>
+            <option value="repo">repository</option>
+          </select>
+        </form>
       </div>
 
     </>
