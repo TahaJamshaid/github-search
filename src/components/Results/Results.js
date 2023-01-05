@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Avatar, Image } from 'antd';
 import styles from './results.module.css'
+import ResultCard from '.././ResultCard/ResultCard';
 
 import { useGetRepositoryQuery } from '../../services/githubApi';
 
@@ -10,7 +10,21 @@ const Results = ({ query, queryType }) => {
   const [page, setPage] = useState(1);
   const { data, error, isLoading } = useGetRepositoryQuery({ query, queryType, page });
 
-  console.log(page)
+  useEffect(() => {
+    const onScroll = () => {
+      const scrolledToBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight;
+      if (scrolledToBottom && !isLoading && page * 30 < data.total_count) {
+        console.log("Fetching more data...");
+        setPage(page + 1);
+      }
+    };
+    document.addEventListener("scroll", onScroll);
+    return function () {
+      document.removeEventListener("scroll", onScroll);
+    };
+  }, [page, isLoading]);
+
 
   if (isLoading) {
     return <h2>Data is loading....</h2>
@@ -23,24 +37,20 @@ const Results = ({ query, queryType }) => {
   let results;
   if (queryType === 'repositories') {
     results = data.items.map((item, key) => (
-      <Card key={key} size="small" title={item.name?.split(30)} extra={<a href={item.html_url}>More</a>} style={{ width: 300, height: 200 }}>
-        {item.description && <p>{item.description.split(225) + "..."}</p>}
-      </Card>
+      <ResultCard key={key} name={item.name} link={item.html_url} description={item.description} cardType='repositories' />
     ))
   } else if (queryType === 'users') {
-    results = data.items.map((item) => (
-      <Card size="small" title={item.login} extra={<a href={item.html_url}>More</a>} style={{ width: 300, height: 200 }}>
-        <Avatar src={<Image src={item.avatar_url} style={{ width: 64 }} />} size={64} />
-        <p>Score: {item.score}</p>
-      </Card>))
+    results = data.items.map((item, key) => (
+      <ResultCard key={key} name={item.name || item.login} link={item.html_url} imageURL={item.avatar_url} score={item.score} cardType='user' />)
+    )
   }
 
   return (
     <>
-      <button onClick={() => setPage(page + 1)}>next page</button>
       <div className={styles.wrapper}>
         <div className={styles.container}>
           {results}
+          {page * 30 < data.total_count ? <p>Loading More....</p> : <p> No More results</p>}
         </div>
       </div>
     </>

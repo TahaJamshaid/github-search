@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import styles from './search.module.css'
 import { Typography } from 'antd';
 import { Avatar, Image } from 'antd';
@@ -23,7 +23,6 @@ const Search = ({ query, setQuery, queryType, setQueryType }) => {
   const debouncedChangeHandler = useCallback(
     debounce(onInputChangeHandler, 1000)
     , []);
-  // console.log(query)
   return (
     <>
       <div className={styles.container}>

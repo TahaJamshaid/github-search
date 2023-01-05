@@ -4,11 +4,8 @@ import Search from './components/Search/Search'
 import Results from './components/Results/Results'
 
 function App() {
-
   const [query, setQuery] = useState('');
   const [queryType, setQueryType] = useState('repositories');
-
-  console.log(queryType)
 
   return (
     <div className="App">
