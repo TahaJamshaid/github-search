@@ -24,7 +24,7 @@ const Search = ({ query, setQuery, queryType, setQueryType }) => {
     debounce(onInputChangeHandler, 1000)
     , []);
   return (
-    <>
+    <div>
       <div className={styles.container}>
         <Avatar src={<Image src={Logo} style={{ width: 64 }} />} size={64} />
         <div className={styles.title_container}>
@@ -33,7 +33,7 @@ const Search = ({ query, setQuery, queryType, setQueryType }) => {
         </div>
       </div>
       <div>
-        <form>
+        <form className={styles.form} onSubmit={(event) => event.preventDefault()}>
           <input className={styles.search_input} placeholder="Start typing to search .." type="text" onChange={debouncedChangeHandler} />
           <select className={styles.select_input} name="cars" id="cars" onChange={onSelectChangeHandler}>
             <option value="repositories">repos</option>
@@ -42,7 +42,7 @@ const Search = ({ query, setQuery, queryType, setQueryType }) => {
         </form>
       </div>
 
-    </>
+    </div>
 
   )
 }

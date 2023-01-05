@@ -5,7 +5,7 @@ import Logo from '../../assets/github-logo.png'
 
 const ResultCard = ({ cardType, link, name, description, imageURL, score }) => {
   return (
-    <Card size="small" title={name?.split(0, 30)} extra={<a href={link}>More</a>} style={{ width: 300, height: 200 }}>
+    <Card size="small" title={name?.split(0, 30)} extra={<a href={link}>More</a>} style={{ width: 300, height: 200, border: 'solid grey' }}>
 
       {description && <p>{description.split(225) + "..."}</p>}
       {cardType === 'user' && <>

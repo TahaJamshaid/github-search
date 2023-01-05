@@ -3,22 +3,28 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  padding: 1rem;
 }
-
+.form {
+  padding: 0.5rem;
+}
 .search_input {
   width: 300px;
   height: 50px;
   margin-right: 10px;
+  border-color: black;
 }
 
 .select_input {
   width: 100px;
   height: 50px;
   margin-left: 10px;
+  border-color: black;
 }
 
 .title {
   padding: 0 !important;
   margin: 0 !important;
   margin-top: 0 !important;
+  margin-left: 1rem !important;
 }

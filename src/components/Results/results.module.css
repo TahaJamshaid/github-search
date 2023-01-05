@@ -3,7 +3,7 @@
   place-items: center;
   grid-template-columns: repeat(3, 300px);
   gap: 10px;
-  padding: 4rem;
+  padding-top: 4rem;
   grid-auto-rows: minmax(100px, auto);
 }
 
@@ -11,6 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 @media screen and (max-width: 768px) {

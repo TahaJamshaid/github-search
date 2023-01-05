@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styles from './results.module.css'
 import ResultCard from '.././ResultCard/ResultCard';
+import { Spin } from 'antd';
 
 import { useGetRepositoryQuery } from '../../services/githubApi';
 
@@ -10,8 +11,6 @@ const Results = ({ query, queryType }) => {
   const [page, setPage] = useState(1);
   const { data, error, isLoading } = useGetRepositoryQuery({ query, queryType, page });
   const [currentData, setCurrentData] = useState({ data: [], query: query, type: queryType })
-
-  console.log(currentData)
   useEffect(() => {
     if (data) {
       setCurrentData({ ...currentData, data: [...currentData.data, ...data.items], })
@@ -41,13 +40,12 @@ const Results = ({ query, queryType }) => {
 
 
   if (isLoading) {
-    return <h2>Data is loading....</h2>
+    return <Spin />
   }
 
   if (error) {
     return <h2>Error while fetching data...</h2>
   }
-  console.log(data)
   let results;
   if (queryType === 'repositories') {
     results = currentData.data.map((item, key) => (
@@ -64,7 +62,7 @@ const Results = ({ query, queryType }) => {
       <div className={styles.wrapper}>
         <div className={styles.container}>
           {results}
-          {page * 30 < data.total_count ? <p>Loading More....</p> : <p> No results</p>}
+          {page * 30 < data.total_count ? <Spin /> : <p> No results</p>}
         </div>
       </div>
     </>

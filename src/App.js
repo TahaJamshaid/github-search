@@ -8,8 +8,10 @@ function App() {
   const [queryType, setQueryType] = useState('repositories');
 
   return (
-    <div className="App" >
-      <Search setQuery={setQuery} query={query} queryType={queryType} setQueryType={setQueryType} />
+    <div className="App wrapper" >
+      <div className='search-container'>
+        <Search setQuery={setQuery} query={query} queryType={queryType} setQueryType={setQueryType} />
+      </div>
       {query.length > 3 &&
         <Results query={query} queryType={queryType} />
       }
