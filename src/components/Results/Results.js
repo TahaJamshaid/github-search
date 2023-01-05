@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Card, Avatar, Image } from 'antd';
 import styles from './results.module.css'
 
@@ -6,7 +6,11 @@ import { useGetRepositoryQuery } from '../../services/githubApi';
 
 
 const Results = ({ query, queryType }) => {
-  const { data, error, isLoading } = useGetRepositoryQuery({ query, queryType });
+
+  const [page, setPage] = useState(1);
+  const { data, error, isLoading } = useGetRepositoryQuery({ query, queryType, page });
+
+  console.log(page)
 
   if (isLoading) {
     return <h2>Data is loading....</h2>
@@ -15,11 +19,11 @@ const Results = ({ query, queryType }) => {
   if (error) {
     return <h2>Error while fetching data...</h2>
   }
-
+  console.log(data)
   let results;
   if (queryType === 'repositories') {
-    results = data.items.map((item) => (
-      <Card size="small" title={item.name} extra={<a href={item.html_url}>More</a>} style={{ width: 300, height: 200 }}>
+    results = data.items.map((item, key) => (
+      <Card key={key} size="small" title={item.name?.split(30)} extra={<a href={item.html_url}>More</a>} style={{ width: 300, height: 200 }}>
         {item.description && <p>{item.description.split(225) + "..."}</p>}
       </Card>
     ))
@@ -32,11 +36,15 @@ const Results = ({ query, queryType }) => {
   }
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.container}>
-        {results}
+    <>
+      <button onClick={() => setPage(page + 1)}>next page</button>
+      <div className={styles.wrapper}>
+        <div className={styles.container}>
+          {results}
+        </div>
       </div>
-    </div>
+    </>
+
 
   )
 }
