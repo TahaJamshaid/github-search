@@ -10,18 +10,8 @@ export const githubApi = createApi({
     getRepository: builder.query({
       query: (args) => {
         const { query, queryType, page } = args;
+        console.log(args)
         return `search/${queryType}?q=${query}&page=${page}`
-      },
-      serializeQueryArgs: ({ endpointName }) => {
-        return endpointName
-      },
-      merge: (currentCache, newItems) => {
-        console.log(currentCache);
-        currentCache.items.push(...newItems.items)
-        console.log(currentCache);
-      },
-      forceRefetch({ currentArg, previousArg }) {
-        return currentArg !== previousArg
       },
 
     }),
