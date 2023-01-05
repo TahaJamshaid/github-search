@@ -34,7 +34,7 @@ const Search = ({ query, setQuery, queryType, setQueryType }) => {
       </div>
       <div>
         <form>
-          <input className={styles.search_input} placeholder="Search" type="text" onChange={debouncedChangeHandler} />
+          <input className={styles.search_input} placeholder="Start typing to search .." type="text" onChange={debouncedChangeHandler} />
           <select className={styles.select_input} name="cars" id="cars" onChange={onSelectChangeHandler}>
             <option value="repositories">repos</option>
             <option value="users">users</option>
