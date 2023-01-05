@@ -11,13 +11,11 @@ const { Title } = Typography;
 const Search = ({ query, setQuery, queryType, setQueryType }) => {
   const onInputChangeHandler = (event) => {
     event.preventDefault()
-    console.log(query);
     setQuery(event.target.value)
   }
 
   const onSelectChangeHandler = (event) => {
     event.preventDefault()
-    console.log(event.target.value, 'this is target value')
     setQueryType(event.target.value);
   }
   const debouncedChangeHandler = useCallback(

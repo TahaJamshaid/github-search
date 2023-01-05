@@ -10,7 +10,6 @@ export const githubApi = createApi({
     getRepository: builder.query({
       query: (args) => {
         const { query, queryType, page } = args;
-        console.log(args)
         return `search/${queryType}?q=${query}&page=${page}`
       },
 

@@ -28,7 +28,6 @@ const Results = ({ query, queryType }) => {
       const scrolledToBottom =
         window.innerHeight + window.scrollY >= document.documentElement.scrollHeight;
       if (scrolledToBottom && !isLoading && page * 30 < data.total_count) {
-        console.log("Fetching more data...");
         setPage(page + 1);
       }
     };
